@@ -22,7 +22,7 @@ class BlogIndex extends React.Component {
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
-            <div key={node.fields.slug}>
+            <nav key={node.fields.slug}>
               <h3
                 style={{
                   marginBottom: rhythm(1 / 4),
@@ -32,13 +32,26 @@ class BlogIndex extends React.Component {
                   {title}
                 </Link>
               </h3>
-              <small>{node.frontmatter.date}</small>
+
+              {node.headings.map(heading => (
+                <h4>
+                  <Link
+                    style={{ boxShadow: `none` }}
+                    to={`${node.fields.slug}#${heading.value
+                      .split(" ")
+                      .join("-")}`}
+                  >
+                    >{heading.value}
+                  </Link>
+                </h4>
+              ))}
+              {/* <small>{node.frontmatter.date}</small>
               <p
                 dangerouslySetInnerHTML={{
                   __html: node.frontmatter.description || node.excerpt,
                 }}
-              />
-            </div>
+              /> */}
+            </nav>
           )
         })}
       </Layout>
@@ -59,6 +72,9 @@ export const pageQuery = graphql`
       edges {
         node {
           excerpt
+          headings(depth: h2) {
+            value
+          }
           fields {
             slug
           }

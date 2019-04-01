@@ -3,6 +3,8 @@ import { Link } from "gatsby"
 
 import { rhythm, scale } from "../utils/typography"
 
+require(`katex/dist/katex.min.css`)
+
 class Layout extends React.Component {
   render() {
     const { location, title, children } = this.props
@@ -34,7 +36,7 @@ class Layout extends React.Component {
       header = (
         <h3
           style={{
-            fontFamily: `Montserrat, sans-serif`,
+            fontFamily: `"Fira Sans", sans-serif`,
             marginTop: 0,
           }}
         >
